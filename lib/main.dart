@@ -169,6 +169,56 @@ class CustomAppBar extends StatelessWidget{
   }
 }
 
+
+class Feed extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return CustomScrollView(
+        slivers:<Widget>[
+          const SliverAppBar(
+            floating: true,
+            pinned: true,
+            expandedHeight: 250.0,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text('Demo'),
+            ),
+          ),
+        SliverGrid(
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 200.0,
+            mainAxisSpacing: 10.0,
+            crossAxisSpacing: 10.0,
+            childAspectRatio: 4.0,
+          ),
+          delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+              return Container(
+                alignment: Alignment.center,
+                color: Colors.teal[100 * (index % 9)],
+                child: Text('Grid Item $index'),
+              );
+            },
+            childCount: 20,
+          ),
+        ),
+        SliverFixedExtentList(
+          itemExtent: 50.0,
+          delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+              return Container(
+                alignment: Alignment.center,
+                color: Colors.lightBlue[100 * (index % 9)],
+                child: Text('List Item $index'),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
 class _InstaUIState extends State<InstaUI>{
   Widget build(BuildContext context){
     return MaterialApp(
@@ -177,12 +227,13 @@ class _InstaUIState extends State<InstaUI>{
         body: Column(
           children: <Widget>[
             Container(
-              margin: new EdgeInsets.symmetric(horizontal: 1.0, vertical:  1.0),
+              margin: new EdgeInsets.symmetric(horizontal: 1.0, vertical:  10.0),
               child: CustomAppBar(),
             ),
-            Container(
-
-            )
+//            Container(
+//              child: Feed(),
+//            ),
+           Feed(),
           ],
         ),
       ),
