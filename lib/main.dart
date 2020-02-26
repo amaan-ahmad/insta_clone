@@ -113,6 +113,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter/services.dart';
 
 
 void main() => runApp(InstaUI());
@@ -122,20 +123,48 @@ class InstaUI extends StatefulWidget{
 
   @override
   _InstaUIState createState() => _InstaUIState();
+
+//  static Future<void> setEnabledSystemUIOverlays(List<SystemUiOverlay> overlays) async {
+//    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+//      statusBarColor: Colors.redAccent,
+//    ));
+//  }
+
+
 }
 
 class CustomAppBar extends StatelessWidget{
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        new IconButton(
-          icon: new Icon(
-            MdiIcons.fromString('camera'),
-          ),
-          onPressed: () { print('Using the sword'); }
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent
+    ));
+    return Padding(
+      padding: EdgeInsets.all(5.0),
+      child:
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          new IconButton(
+            icon: new Icon(
+              MdiIcons.fromString('camera'),
+            ),
+            onPressed: () { print('Using the camera'); }
         ),
-      ],
+        Image(
+          image: AssetImage('assets/insta_logo.png'),
+        ),
+        Transform.rotate(angle: -1,
+           child: new IconButton(
+                icon: new Icon(
+                  MdiIcons.fromString('send'),
+                ),
+                onPressed: (){}
+              ),
+            ),
+        ],
+      ),
     );
   }
 }
@@ -143,15 +172,19 @@ class CustomAppBar extends StatelessWidget{
 class _InstaUIState extends State<InstaUI>{
   Widget build(BuildContext context){
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-//        appBar: AppBar(
-//            title: Text('Instagram'),
-//        ),
-      body: Column(
-        children: <Widget>[
-          CustomAppBar()
-        ],
-      ),
+        body: Column(
+          children: <Widget>[
+            Container(
+              margin: new EdgeInsets.symmetric(horizontal: 1.0, vertical:  1.0),
+              child: CustomAppBar(),
+            ),
+            Container(
+
+            )
+          ],
+        ),
       ),
     );
   }
